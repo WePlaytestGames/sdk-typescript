@@ -1,0 +1,47 @@
+{
+  "name": "@weplaytestgames/sdk",
+  "version": "0.1.0",
+  "description": "Official TypeScript SDK for the We Playtest Games API",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "test": "vitest run --config tests/integration/vitest.config.ts",
+    "test:watch": "vitest --config tests/integration/vitest.config.ts"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.6",
+    "pg": "^8.13.1",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WePlaytestGames/sdk-typescript"
+  },
+  "keywords": [
+    "weplaytestgames",
+    "playtest",
+    "game-development",
+    "api-client"
+  ]
+}
