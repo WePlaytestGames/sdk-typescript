@@ -1,5 +1,6 @@
 import { HttpClient } from './http.js';
 import { AuthResource } from './resources/auth.js';
+import { InfoResource } from './resources/info.js';
 import { GamesResource } from './resources/games.js';
 import { PlaytestsResource } from './resources/playtests.js';
 import { SlotsResource } from './resources/slots.js';
@@ -28,6 +29,7 @@ const DEFAULT_BASE_URL = 'https://app.weplaytestgames.com/api/v1';
 
 export class WPGClient {
   readonly auth: AuthResource;
+  readonly info: InfoResource;
   readonly games: GamesResource;
   readonly playtests: PlaytestsResource;
   readonly slots: SlotsResource;
@@ -47,6 +49,7 @@ export class WPGClient {
     });
 
     this.auth = new AuthResource(http);
+    this.info = new InfoResource(http);
     this.games = new GamesResource(http);
     this.playtests = new PlaytestsResource(http);
     this.slots = new SlotsResource(http);

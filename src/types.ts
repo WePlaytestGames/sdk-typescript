@@ -405,7 +405,6 @@ export interface WebhookTestResponse {
   delivery: {
     id: string;
     statusCode: number | null;
-    responseBody: string | null;
     deliveredAt: string | null;
   };
 }
