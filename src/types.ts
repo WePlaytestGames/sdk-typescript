@@ -153,6 +153,9 @@ export interface PlaytestRequest {
   visibility: string;
   quantity: number;
   durationMinutes: number;
+  playerCount: number;
+  costPerSlotCents: number | null;
+  payoutCents: number | null;
   notesForTesters: string | null;
   status: string;
   isFreePublicTrial: boolean;
@@ -168,7 +171,8 @@ export interface PlaytestDetail extends PlaytestRequest {
 export interface PlaytestCreateParams {
   visibility?: 'public' | 'private';
   quantity?: number;
-  durationMinutes?: 30 | 60;
+  durationMinutes?: 30 | 60 | 120 | 180;
+  playerCount?: number;
   notesForTesters?: string;
   keysForTesters?: string[];
   isFreePublicTrial?: boolean;
@@ -180,7 +184,7 @@ export interface PlaytestCreateParams {
 export interface PlaytestCreateResponse {
   playtest: PlaytestRequest;
   requiresPayment?: boolean;
-  pricePerPlaytestCents?: number;
+  costPerSlotCents?: number;
   totalCents?: number;
   slots?: PlaytestSlot[];
   needsAdminApproval?: boolean;
