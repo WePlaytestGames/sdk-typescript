@@ -179,6 +179,38 @@ export interface PlaytestCreateParams {
   targetingType?: 'new' | 'past';
   pastPlaytesterScope?: 'any' | 'specific';
   targetedPlaytesterId?: string;
+  selectionMode?: 'automatic' | 'manual';
+  qualifications?: string;
+}
+
+export interface PlaytestApplication {
+  id: string;
+  status: 'pending' | 'approved' | 'rejected' | 'withdrawn' | 'auto_rejected';
+  qualificationsResponse: string | null;
+  createdAt: string;
+  reviewedAt: string | null;
+  assignedSlotId: string | null;
+  playtesterId: string;
+  displayName: string;
+  gamingExperience: string | null;
+  validatedAt: string | null;
+  ratingAverage: string | null;
+  acceptedCount: string;
+}
+
+export interface PlaytestApplicationsResponse {
+  request: {
+    id: string;
+    gameId: string;
+    gameName: string;
+    quantity: number;
+    qualifications: string | null;
+    selectionMode: 'automatic' | 'manual';
+    applicationsExpireAt: string | null;
+    scheduledAt: string | null;
+  };
+  counts: { approvedCount: number; pendingCount: number; slotsRemaining: number };
+  applications: PlaytestApplication[];
 }
 
 export interface PlaytestCreateResponse {

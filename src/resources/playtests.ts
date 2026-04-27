@@ -7,6 +7,8 @@ import type {
   PlaytestUpdateParams,
   PlaytestSlot,
   PaginationParams,
+  PlaytestApplication,
+  PlaytestApplicationsResponse,
 } from '../types.js';
 import { makePaginated, type Paginated } from '../pagination.js';
 
@@ -55,6 +57,35 @@ export class PlaytestsResource {
         return { data: res.data.slots, meta: res.meta };
       },
       params ?? {},
+    );
+  }
+
+  /**
+   * List applications for a manual-selection playtest (pool model).
+   * Applications are tied to the request, not individual slots — approving
+   * one assigns the applicant to the next unfilled slot.
+   */
+  async listApplications(playtestId: string): Promise<PlaytestApplicationsResponse> {
+    return this.http.get<PlaytestApplicationsResponse>(`/playtests/${playtestId}/applications`);
+  }
+
+  /**
+   * Approve an application. Atomically assigns the applicant to an open
+   * slot and starts a 72h deadline. When the last slot fills, remaining
+   * pending applications on the same playtest are auto-rejected.
+   */
+  async approveApplication(applicationId: string): Promise<{ application: PlaytestApplication; assignedSlotId: string; slotsRemaining: number }> {
+    return this.http.post<{ application: PlaytestApplication; assignedSlotId: string; slotsRemaining: number }>(
+      `/playtest-applications/${applicationId}/approve`,
+      {},
+    );
+  }
+
+  /** Reject a pending application. Does not affect other applicants or slots. */
+  async rejectApplication(applicationId: string): Promise<{ application: PlaytestApplication }> {
+    return this.http.post<{ application: PlaytestApplication }>(
+      `/playtest-applications/${applicationId}/reject`,
+      {},
     );
   }
 }
