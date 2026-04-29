@@ -81,11 +81,19 @@ export class PlaytestsResource {
     );
   }
 
-  /** Reject a pending application. Does not affect other applicants or slots. */
-  async rejectApplication(applicationId: string): Promise<{ application: PlaytestApplication }> {
+  /**
+   * Reject a pending application. Does not affect other applicants or slots.
+   * Optionally include a personal `customMessage` (max 1500 chars) that will appear
+   * verbatim in the rejection email so you can leave feedback like
+   * "you were close, we'll consider you next round".
+   */
+  async rejectApplication(
+    applicationId: string,
+    options: { customMessage?: string } = {},
+  ): Promise<{ application: PlaytestApplication }> {
     return this.http.post<{ application: PlaytestApplication }>(
       `/playtest-applications/${applicationId}/reject`,
-      {},
+      options.customMessage ? { customMessage: options.customMessage } : {},
     );
   }
 }
