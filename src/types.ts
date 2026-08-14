@@ -160,6 +160,7 @@ export interface PlaytestRequest {
   status: string;
   isFreePublicTrial: boolean;
   targetingType: string | null;
+  targetingScope: string | null;
   createdAt: string;
   slots: SlotStats;
 }
@@ -177,6 +178,8 @@ export interface PlaytestCreateParams {
   keysForTesters?: string[];
   isFreePublicTrial?: boolean;
   targetingType?: 'new' | 'past';
+  /** Refines 'new' and 'past'+'any' targeting: 'game' = this game only, 'owner' (default) = all your games */
+  targetingScope?: 'game' | 'owner';
   pastPlaytesterScope?: 'any' | 'specific';
   targetedPlaytesterId?: string;
   selectionMode?: 'automatic' | 'manual';
