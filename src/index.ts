@@ -50,6 +50,14 @@ export type {
   Payment,
   PurchaseCreditParams,
   PurchaseCreditResponse,
+  // Subscriptions
+  PlanKey,
+  SubscriptionPlan,
+  Subscription,
+  SubscriptionSummary,
+  SubscriptionCheckoutResponse,
+  PlaytestHoursBalance,
+  PlaytestHoursEntry,
   // Chat
   ChatContact,
   ChatMessage,

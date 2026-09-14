@@ -75,6 +75,7 @@ const client = new WPGClient({
 | `client.slots` | `get()`, `accept()`, `reject()`, `downloadUrl()`, `transcript()` |
 | `client.submissions` | `list()`, `get()` |
 | `client.billing` | `getBalance()`, `payments()`, `getPayment()`, `purchaseCredit()` |
+| `client.subscriptions` | `listPlans()`, `get()`, `createCheckout()`, `cancel()`, `resume()`, `playtestHours()`, `playtestHoursHistory()` |
 | `client.chat` | `contacts()`, `conversation()`, `sendMessage()`, `unreadCount()` |
 | `client.webhooks` | `list()`, `create()`, `update()`, `delete()`, `test()`, `deliveries()` |
 | `client.notifications` | `list()`, `markRead()`, `markAllRead()` |

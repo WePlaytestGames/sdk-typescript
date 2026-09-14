@@ -6,6 +6,7 @@ import { PlaytestsResource } from './resources/playtests.js';
 import { SlotsResource } from './resources/slots.js';
 import { SubmissionsResource } from './resources/submissions.js';
 import { BillingResource } from './resources/billing.js';
+import { SubscriptionsResource } from './resources/subscriptions.js';
 import { ChatResource } from './resources/chat.js';
 import { NotificationsResource } from './resources/notifications.js';
 import { WebhooksResource } from './resources/webhooks.js';
@@ -35,6 +36,7 @@ export class WPGClient {
   readonly slots: SlotsResource;
   readonly submissions: SubmissionsResource;
   readonly billing: BillingResource;
+  readonly subscriptions: SubscriptionsResource;
   readonly chat: ChatResource;
   readonly notifications: NotificationsResource;
   readonly webhooks: WebhooksResource;
@@ -55,6 +57,7 @@ export class WPGClient {
     this.slots = new SlotsResource(http);
     this.submissions = new SubmissionsResource(http);
     this.billing = new BillingResource(http);
+    this.subscriptions = new SubscriptionsResource(http);
     this.chat = new ChatResource(http);
     this.notifications = new NotificationsResource(http);
     this.webhooks = new WebhooksResource(http);

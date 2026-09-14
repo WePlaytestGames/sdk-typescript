@@ -337,6 +337,8 @@ export interface SubmissionsListParams extends PaginationParams {
 export interface Balance {
   balanceCents: number;
   currency: string;
+  /** Subscription playtest hours, in minutes (1 playtest hour = 60). */
+  playtestMinutes: number;
 }
 
 export interface Payment {
@@ -357,6 +359,83 @@ export interface PurchaseCreditResponse {
   checkoutUrl: string;
   paymentId: string;
   amountCents: number;
+}
+
+// ========== Subscriptions ==========
+
+export type PlanKey = 'indie_monthly' | 'indie_yearly' | 'studio_monthly' | 'studio_yearly';
+
+export interface SubscriptionPlan {
+  key: PlanKey;
+  /** "Indie" | "Studio" */
+  name: string;
+  /** "Indie" | "Indie Yearly" | "Studio" | "Studio Yearly" */
+  displayName: string;
+  tier: 'indie' | 'studio';
+  interval: 'month' | 'year';
+  priceCents: number;
+  /** Playtest hours granted per billing cycle, in minutes */
+  minutesPerCycle: number;
+  hoursPerCycle: number;
+  /** Effective price per playtest hour, in cents */
+  pricePerHourCents: number;
+}
+
+export interface Subscription {
+  id: string;
+  planKey: PlanKey;
+  planName: string;
+  tier: 'indie' | 'studio';
+  interval: 'month' | 'year';
+  priceCents: number;
+  minutesPerCycle: number;
+  hoursPerCycle: number;
+  status: 'incomplete' | 'active' | 'past_due' | 'cancelled';
+  currentPeriodStart: string | null;
+  currentPeriodEnd: string | null;
+  cancelAtPeriodEnd: boolean;
+  cancelledAt: string | null;
+  endedAt: string | null;
+  endedReason: string | null;
+  createdAt: string;
+}
+
+export interface SubscriptionSummary {
+  /** Null when not subscribed */
+  subscription: Subscription | null;
+  plan: SubscriptionPlan | null;
+  /** Playtest hours balance, in minutes */
+  playtestMinutes: number;
+  playtestHours: number;
+  nextRenewalAt: string | null;
+  endsAt: string | null;
+  cancelAtPeriodEnd: boolean;
+}
+
+export interface SubscriptionCheckoutResponse {
+  /** Open this in a browser to complete payment */
+  checkoutUrl: string;
+  sessionId: string;
+  subscriptionId: string;
+  /** True when this checkout replaces the current plan */
+  isPlanChange: boolean;
+}
+
+export interface PlaytestHoursBalance {
+  balanceMinutes: number;
+  balanceHours: number;
+}
+
+export interface PlaytestHoursEntry {
+  id: string;
+  /** Signed minutes: + grant / refund, − spend / clawback */
+  amountMinutes: number;
+  source: string;
+  note: string | null;
+  subscriptionId: string | null;
+  paymentId: string | null;
+  playtestRequestId: string | null;
+  createdAt: string;
 }
 
 // ========== Chat ==========
