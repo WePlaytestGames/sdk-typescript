@@ -218,9 +218,21 @@ export interface PlaytestApplicationsResponse {
 
 export interface PlaytestCreateResponse {
   playtest: PlaytestRequest;
+  /** True when the order was paid on creation (playtest hours or account credit). */
+  paid?: boolean;
+  paidWithPlaytestHours?: boolean;
+  /** Paid from account credit, then referral commission. */
+  paidWithCredit?: boolean;
+  creditUsedCents?: number;
+  commissionUsedCents?: number;
+  paymentId?: string;
   requiresPayment?: boolean;
   costPerSlotCents?: number;
   totalCents?: number;
+  /** Account credit + commission that will come off the total at payment. */
+  creditAppliedCents?: number;
+  /** What is left to pay after creditAppliedCents. */
+  amountDueCents?: number;
   slots?: PlaytestSlot[];
   needsAdminApproval?: boolean;
 }
