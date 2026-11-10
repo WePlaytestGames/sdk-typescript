@@ -32,6 +32,7 @@ export type {
   PlaytestDetail,
   PlaytestCreateParams,
   PlaytestCreateResponse,
+  PlaytestLanguage,
   PlaytestUpdateParams,
   // Slots
   PlaytestSlot,

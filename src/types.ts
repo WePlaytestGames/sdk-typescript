@@ -161,9 +161,16 @@ export interface PlaytestRequest {
   isFreePublicTrial: boolean;
   targetingType: string | null;
   targetingScope: string | null;
+  /** Languages the playtest may be done in (any of them), ISO 639-1 codes */
+  languages: PlaytestLanguage[];
   createdAt: string;
   slots: SlotStats;
 }
+
+/** Languages a playtest can be done in (ISO 639-1). */
+export type PlaytestLanguage =
+  | 'en' | 'zh' | 'hi' | 'es' | 'ar' | 'fr' | 'bn' | 'pt' | 'ru'
+  | 'ur' | 'id' | 'de' | 'ja' | 'ko' | 'tr' | 'it' | 'pl';
 
 export interface PlaytestDetail extends PlaytestRequest {
   gameName: string;
@@ -184,6 +191,11 @@ export interface PlaytestCreateParams {
   targetedPlaytesterId?: string;
   selectionMode?: 'automatic' | 'manual';
   qualifications?: string;
+  /**
+   * Languages the playtest may be done in (any of them; default ['en']). Only playtesters
+   * who list one of them can see and claim it.
+   */
+  languages?: PlaytestLanguage[];
 }
 
 export interface PlaytestApplication {
